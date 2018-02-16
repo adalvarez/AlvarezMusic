@@ -1,58 +1,95 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
+	Platform,
+	StyleSheet,
+	Text,
+	View,
+	Image
 } from 'react-native';
+import { Icon } from 'react-native-elements'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+export default class App extends Component {
+	render() {
+		let image = 'https://pbs.twimg.com/profile_images/378800000285401980/1936531c6ba639dca437e7c14061020c_400x400.jpeg';
+		let name = 'Javier Domínguez "Zeta"';
+		let likes = 200;
+		let comments = 10;
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
-  }
+		return (
+			<View style={styles.container}>
+				<View style={styles.artistBox}>
+					<Image source={{uri:image}} style={styles.image}/>
+					<View style={styles.info}>
+						<Text style={styles.name}>{name}</Text>
+						<View style={styles.social}>
+							<View style={styles.iconContainer}>
+								<Icon
+									name='ios-heart-outline'
+									type='ionicon'
+									color='gray'
+									size={30}
+								/>
+								<Text style={styles.count}>{likes}</Text>
+							</View>
+							<View style={styles.iconContainer}>
+								<Icon
+									name='ios-chatboxes-outline'
+									type='ionicon'
+									color='gray'
+									size={30}
+								/>
+								<Text style={styles.count}>{comments}</Text>
+							</View>
+						</View>
+					</View>
+				</View>
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+	container: {
+		flex: 1,
+		backgroundColor: 'lightgray',
+		...Platform.select({
+			ios: {
+				paddingTop:50,
+			},
+			android:{
+				paddingTop:0,
+			}
+		})
+	},
+	image:{
+		width: 150,
+		height: 150,
+	},
+	artistBox: {
+		backgroundColor: 'white',
+		flexDirection: 'row',
+	},
+	info:{
+		flex: 1,
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	name:{
+		fontSize: 20,
+		color: 'black'
+	},
+	social:{
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		marginHorizontal: 60,
+		marginTop: 15,
+	},
+	iconContainer:{
+		flex:1,
+		alignItems: 'center'
+	},
+	count:{
+		color: 'gray'
+	}
 });
